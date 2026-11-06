@@ -1,0 +1,19 @@
+# Pesan error hotspot (Bahasa Indonesia)
+internal-error = terjadi kesalahan sistem ($(error-orig))
+config-error = kesalahan konfigurasi ($(error-orig))
+not-logged-in = Anda belum login
+ippool-empty = alamat IP habis, coba lagi beberapa saat lagi
+shutting-down = layanan hotspot sedang dimatikan
+session-limit = batas jumlah pengguna hotspot tercapai ($(error-orig))
+license-limit = batas jumlah pengguna hotspot tercapai ($(error-orig))
+wrong-mac-username = username tidak valid ($(error-orig))
+chap-missing = browser tidak mengirim respons CHAP, coba lagi dan aktifkan JavaScript
+invalid-username = username atau password salah
+invalid-password = username atau password salah
+user-session-limit = kode $(username) sudah dipakai di perangkat lain (batas sesi tercapai)
+uptime-limit = waktu pemakaian $(username) sudah habis
+traffic-limit = kuota $(username) sudah habis
+no-cookies = browser tidak mengirim cookie, aktifkan cookie lalu coba lagi
+radius-timeout = server RADIUS tidak merespons
+auth-in-progress = proses autentikasi sedang berjalan, coba lagi sebentar
+radius-reply = $(error-orig)

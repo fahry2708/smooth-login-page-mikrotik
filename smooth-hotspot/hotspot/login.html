@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="theme-color" content="#04174F">
+<title>Smooth Broadband Internet - Login</title>
+<style>
+:root{--deep:#04174F;--navy:#0A2A8A;--electric:#1F5BFF;--cyan:#22D3EE;--ice:#EAF4FF;--text:#0F2252;--muted:#5B6B8F;--line:#D8E3F5;--ok:#0E9F6E;--danger-bg:#FDECEC;--danger:#A12020}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:#0A2A8A}
+body{margin:0;min-height:100vh;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:linear-gradient(145deg,var(--deep) 0%,var(--navy) 55%,var(--electric) 100%);line-height:1.5;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+body::before{width:420px;height:420px;top:-150px;right:-120px;border:64px solid var(--cyan);opacity:.14}
+body::after{width:380px;height:380px;bottom:-170px;left:-140px;border:56px solid #fff;opacity:.07}
+.page{position:relative;z-index:1;width:100%;max-width:1100px;margin:0 auto;padding:clamp(20px,5vh,56px) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.page.center{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.logo{width:100%;max-width:300px;aspect-ratio:2.9/1;overflow:hidden;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(2,12,60,.25)}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 52%}
+.card{background:#fff;border-radius:22px;padding:26px 22px;box-shadow:0 24px 60px rgba(2,12,60,.35)}
+.card .logo{margin:0 auto 20px;box-shadow:none;border:1px solid var(--line)}
+.card.narrow{width:100%;max-width:460px;text-align:center}
+h1,h2,h3{margin:0;line-height:1.2}
+h2{font-size:1.4rem;font-weight:800;color:var(--navy)}
+h3{font-size:1.1rem;font-weight:800;color:var(--navy)}
+.sub{margin:6px 0 20px;color:var(--muted);font-size:.95rem}
+.big{font-size:3.2rem;line-height:1;margin-bottom:10px}
+.foot{margin-top:24px;text-align:center;color:rgba(255,255,255,.8);font-size:.85rem}
+.btn{display:block;width:100%;margin-top:8px;padding:15px 16px;font:inherit;font-size:1.05rem;font-weight:800;text-align:center;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--electric),var(--navy));border:0;border-radius:12px;cursor:pointer;box-shadow:0 10px 22px rgba(31,91,255,.35);transition:filter .15s ease,transform .05s ease}
+.btn:hover{filter:brightness(1.1)}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible,.tab:focus-visible,.link-btn:focus-visible,.wa:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.btn[disabled]{opacity:.75;cursor:wait;filter:none}
+.btn.alt{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+.alert{margin:0 0 16px;padding:12px 14px;font-size:.92rem;font-weight:600;text-align:left;color:var(--danger);background:var(--danger-bg);border:1px solid #F3C4C4;border-radius:12px}
+[hidden]{display:none!important}
+
+/* Login layout */
+.layout{display:grid;gap:18px;grid-template-columns:1fr;grid-template-areas:"head" "panel" "features";animation:rise .5s ease both}
+.head{grid-area:head;text-align:center;color:#fff}
+.features{grid-area:features}
+.panel{grid-area:panel;display:grid;gap:18px;align-content:start}
+.head .logo{margin:0 auto 20px}
+.head h1{font-size:clamp(1.9rem,6vw,2.9rem);font-weight:800;letter-spacing:-.01em}
+.head p{margin:10px auto 0;max-width:36ch;color:rgba(255,255,255,.85);font-size:1.02rem}
+.chip{display:inline-block;margin-top:16px;padding:7px 14px;font-size:.88rem;font-weight:600;color:#C4F5FF;background:rgba(34,211,238,.16);border:1px solid rgba(34,211,238,.45);border-radius:99px}
+.fgrid{display:grid;gap:12px;grid-template-columns:1fr}
+.feat{display:flex;gap:12px;align-items:flex-start;padding:14px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:16px}
+.feat .ic{flex:none;width:42px;height:42px;display:grid;place-items:center;font-size:1.3rem;background:linear-gradient(135deg,var(--cyan),var(--electric));border-radius:12px}
+.feat b{display:block;font-size:1rem}
+.feat span{display:block;font-size:.88rem;color:rgba(255,255,255,.8)}
+@media(min-width:560px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){
+ .layout{grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;grid-template-areas:"head panel" "features panel";gap:28px 36px;align-items:start}
+ .head{text-align:left}
+ .head .logo{margin-left:0}
+ .head p{margin-left:0}
+ .card{padding:30px 28px}
+}
+
+/* Tabs */
+.tabs{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;padding:4px;margin-bottom:20px;background:var(--ice);border-radius:14px}
+.tabs .slider{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/3);background:linear-gradient(135deg,var(--electric),var(--navy));border-radius:11px;transition:transform .22s ease}
+.tabs[data-mode="member"] .slider{transform:translateX(100%)}
+.tabs[data-mode="qr"] .slider{transform:translateX(200%)}
+.tab{position:relative;z-index:1;appearance:none;border:0;background:transparent;padding:12px 2px;font:inherit;font-weight:700;font-size:.88rem;white-space:nowrap;color:var(--navy);cursor:pointer;border-radius:11px;transition:color .22s ease}
+.tab[aria-selected="true"]{color:#fff}
+
+/* Fields */
+.field{margin-bottom:14px;text-align:left}
+label{display:block;margin-bottom:6px;font-weight:700;font-size:.9rem}
+input[type="text"],input[type="password"]{width:100%;padding:14px;font:inherit;font-size:1rem;color:var(--text);background:#fff;border:1.5px solid var(--line);border-radius:12px;transition:border-color .15s ease,box-shadow .15s ease}
+input::placeholder{color:#93A1BC}
+input:focus{outline:none;border-color:var(--electric);box-shadow:0 0 0 4px rgba(34,211,238,.3)}
+input.invalid{border-color:#D14343}
+.hint{margin:6px 0 0;font-size:.85rem;color:var(--muted)}
+.link-btn{appearance:none;border:0;background:transparent;margin-top:8px;padding:6px 2px;font:inherit;font-size:.88rem;font-weight:700;color:var(--electric);cursor:pointer;border-radius:8px}
+
+/* Scan QR */
+.steps{margin:0 0 8px;padding-left:20px;font-size:.92rem;text-align:left}
+.steps li{margin-bottom:6px}
+.scan{position:relative;width:100%;max-width:300px;aspect-ratio:1/1;margin:0 auto 12px;overflow:hidden;background:var(--deep);border-radius:16px}
+.scan video{display:block;width:100%;height:100%;object-fit:cover}
+.scan .frame{position:absolute;inset:16%;border:3px solid var(--cyan);border-radius:14px;box-shadow:0 0 0 999px rgba(4,23,79,.4)}
+label.btn{cursor:pointer}
+label.btn:focus-within{outline:3px solid var(--cyan);outline-offset:2px}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+/* Packages */
+.table-wrap{overflow-x:auto;margin-top:12px}
+table.price{width:100%;border-collapse:collapse;min-width:300px}
+table.price th,table.price td{padding:12px 6px;text-align:left;border-bottom:1px solid var(--line);font-size:.92rem}
+table.price thead th{padding-top:0;font-size:.82rem;font-weight:700;color:var(--muted)}
+table.price th:last-child,table.price td:last-child{text-align:right}
+table.price tbody tr:last-child td{border-bottom:0}
+.pkg{font-weight:700}
+.badge{display:inline-block;padding:4px 10px;font-size:.8rem;font-weight:800;color:var(--electric);background:var(--ice);border:1px solid #C9DBFF;border-radius:99px;white-space:nowrap}
+.rp{font-weight:800;color:var(--navy);white-space:nowrap}
+.cs{text-align:center}
+.cs p{margin:0 0 12px;color:var(--muted);font-size:.92rem}
+.wa{display:block;padding:14px 12px;font-weight:800;font-size:.98rem;text-align:center;text-decoration:none;color:#fff;background:#0F8A47;border-radius:12px;word-break:break-word}
+.wa:hover{filter:brightness(1.1)}
+
+/* Status */
+.pill{display:inline-block;margin:6px 0 16px;padding:5px 12px;font-size:.85rem;font-weight:700;color:#0A6B4B;background:#DDF7EC;border-radius:99px}
+.rows{margin:0 0 14px;padding:0;text-align:left}
+.row{display:flex;justify-content:space-between;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:.95rem}
+.row dt{color:var(--muted)}
+.row dd{margin:0;font-weight:700;text-align:right;word-break:break-all}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{padding:14px 10px;background:var(--ice);border-radius:14px}
+.stat small{display:block;color:var(--muted);font-size:.82rem}
+.stat b{display:block;margin-top:2px;font-size:1.05rem;color:var(--navy);word-break:break-word}
+
+/* Loading */
+.spinner{width:56px;height:56px;margin:0 auto 18px;border-radius:50%;border:6px solid var(--ice);border-top-color:var(--electric);border-right-color:var(--cyan);animation:spin .9s linear infinite}
+.bar{height:6px;margin:18px 0 10px;overflow:hidden;background:var(--ice);border-radius:99px}
+.bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--electric),var(--cyan));animation:fill 2.4s ease forwards}
+.small{font-size:.88rem;color:var(--muted)}
+.small a{color:var(--electric);font-weight:700}
+.err{margin:14px 0 4px;padding:12px 14px;font-weight:600;color:var(--danger);background:var(--danger-bg);border:1px solid #F3C4C4;border-radius:12px;word-break:break-word}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fill{to{width:100%}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.layout,.spinner{animation:none}.bar i{animation:none;width:100%}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="layout">
+
+  <header class="head">
+    <div class="logo"><img src="img/logo.png" alt="Smooth Broadband Internet"></div>
+    <h1>Internet Cepat &amp; Stabil</h1>
+    <p>Selamat datang di jaringan Smooth Broadband Internet</p>
+    <span class="chip">Internet Cepat, Stabil &amp; Tanpa Batas</span>
+  </header>
+
+  <main class="panel">
+    <section class="card" aria-labelledby="login-title">
+      <h2 id="login-title">Login Internet</h2>
+      <p class="sub">Pilih cara masuk, lalu tekan tombol login.</p>
+
+      $(if error)
+      <div class="alert" id="srvError" role="alert">$(error)</div>
+      $(endif)
+
+      <div class="tabs" id="tabs" data-mode="voucher" role="tablist" aria-label="Cara login">
+        <span class="slider" aria-hidden="true"></span>
+        <button type="button" class="tab" id="tab-voucher" role="tab" aria-selected="true" aria-controls="panel-voucher">🎟️ Voucher</button>
+        <button type="button" class="tab" id="tab-member" role="tab" aria-selected="false" aria-controls="panel-member" tabindex="-1">👤 Member</button>
+        <button type="button" class="tab" id="tab-qr" role="tab" aria-selected="false" aria-controls="panel-qr" tabindex="-1">📷 Scan QR</button>
+      </div>
+
+      <form name="login" id="loginForm" action="$(link-login-only)" method="post" novalidate>
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+        <input type="hidden" name="username" id="username" value="">
+        <input type="hidden" name="password" id="password" value="">
+
+        <div id="panel-voucher" role="tabpanel" aria-labelledby="tab-voucher">
+          <div class="field">
+            <label for="voucher">Kode Voucher</label>
+            <input type="text" id="voucher" value="$(username)" placeholder="Masukkan kode voucher"
+                   autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+            <p class="hint">Kode voucher cukup diisi sekali, tanpa password.</p>
+          </div>
+        </div>
+
+        <div id="panel-member" role="tabpanel" aria-labelledby="tab-member" hidden>
+          <div class="field">
+            <label for="memberUser">Username</label>
+            <input type="text" id="memberUser" placeholder="Masukkan username"
+                   autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="memberPass">Password</label>
+            <input type="password" id="memberPass" placeholder="Masukkan password" autocomplete="current-password">
+            <button type="button" class="link-btn" id="togglePass" aria-controls="memberPass">👁️ Show Password</button>
+          </div>
+        </div>
+
+        <div id="panel-qr" role="tabpanel" aria-labelledby="tab-qr" hidden>
+          <div class="scan" id="scanBox" hidden>
+            <video id="scanVideo" playsinline muted></video>
+            <div class="frame" aria-hidden="true"></div>
+          </div>
+          <ol class="steps" id="scanSteps">
+            <li>Buka aplikasi <b>Kamera</b> bawaan HP Anda.</li>
+            <li>Arahkan ke <b>QR code</b> pada voucher.</li>
+            <li>Ketuk link yang muncul, Anda langsung terhubung.</li>
+          </ol>
+          <p class="hint" id="scanMsg" hidden></p>
+          <button type="button" class="btn" id="scanStart" hidden>📷 Buka Kamera di Sini</button>
+          <label class="btn alt" id="scanFileLbl" hidden>📸 Ambil Foto QR<input type="file" class="sr" id="scanFile" accept="image/*" capture="environment"></label>
+        </div>
+
+        <div class="alert" id="clientMsg" role="alert" hidden></div>
+
+        <button type="submit" class="btn" id="submitBtn">🚀 LOGIN INTERNET</button>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="pkg-title">
+      <h3 id="pkg-title">Paket Internet</h3>
+      <div class="table-wrap">
+        <table class="price">
+          <thead>
+            <tr><th scope="col">Paket</th><th scope="col">Durasi</th><th scope="col">Harga</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="pkg">Voucher Hemat</td><td><span class="badge">3 Jam</span></td><td class="rp">Rp 2.000</td></tr>
+            <tr><td class="pkg">Voucher Regular</td><td><span class="badge">6 Jam</span></td><td class="rp">Rp 3.000</td></tr>
+            <tr><td class="pkg">Voucher Harian</td><td><span class="badge">1 Hari</span></td><td class="rp">Rp 5.000</td></tr>
+            <tr><td class="pkg">Member Bulanan</td><td><span class="badge">1 Bulan</span></td><td class="rp">Rp 50.000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card cs" aria-label="Customer Service">
+      <p>Butuh voucher atau bantuan? Hubungi kami.</p>
+      <a class="wa" href="https://wa.me/628XXXXXXXXXX" target="_blank" rel="noopener">💬 Customer Service: 08XX.XXXX.XXXX</a>
+    </section>
+  </main>
+
+  <section class="features" aria-label="Keunggulan layanan">
+    <div class="fgrid">
+      <div class="feat"><div class="ic" aria-hidden="true">⚡</div><div><b>Internet Cepat</b><span>Koneksi nyaman untuk aktivitas online</span></div></div>
+      <div class="feat"><div class="ic" aria-hidden="true">📶</div><div><b>Fiber Optic</b><span>Jaringan stabil dan berkualitas</span></div></div>
+      <div class="feat"><div class="ic" aria-hidden="true">🔒</div><div><b>Aman &amp; Terpercaya</b><span>Akses internet dengan sistem autentikasi</span></div></div>
+      <div class="feat"><div class="ic" aria-hidden="true">💬</div><div><b>Customer Service</b><span>Siap membantu kebutuhan pelanggan</span></div></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// Diisi oleh MikroTik. Kosong bila HTTP-CHAP tidak dipakai.
+// Catatan: nilai CHAP berisi escape oktal, jadi blok ini TIDAK boleh memakai 'use strict'.
+var chapId = '$(chap-id)';
+var chapChallenge = '$(chap-challenge)';
+</script>
+
+<script>
+(function () {
+
+  // MD5 (tanpa library eksternal). Input: string dengan kode karakter 0-255.
+  function md5(str) {
+    var S = [7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,
+             5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,
+             4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,
+             6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];
+    var K = [], i, j;
+    for (i = 0; i < 64; i++) { K[i] = Math.floor(Math.abs(Math.sin(i + 1)) * 4294967296) | 0; }
+    var len = str.length;
+    var words = (((len + 8) >>> 6) + 1) * 16;
+    var w = [];
+    for (i = 0; i < words; i++) { w[i] = 0; }
+    for (i = 0; i < len; i++) { w[i >> 2] |= (str.charCodeAt(i) & 255) << ((i % 4) * 8); }
+    w[len >> 2] |= 128 << ((len % 4) * 8);
+    w[words - 2] = len << 3;
+    w[words - 1] = len >>> 29;
+    var a0 = 0x67452301, b0 = 0xefcdab89 | 0, c0 = 0x98badcfe | 0, d0 = 0x10325476;
+    for (var off = 0; off < words; off += 16) {
+      var A = a0, B = b0, C = c0, D = d0, F, g;
+      for (i = 0; i < 64; i++) {
+        if (i < 16) { F = (B & C) | (~B & D); g = i; }
+        else if (i < 32) { F = (D & B) | (~D & C); g = (5 * i + 1) % 16; }
+        else if (i < 48) { F = B ^ C ^ D; g = (3 * i + 5) % 16; }
+        else { F = C ^ (B | ~D); g = (7 * i) % 16; }
+        F = (F + A + K[i] + w[off + g]) | 0;
+        A = D; D = C; C = B;
+        B = (B + ((F << S[i]) | (F >>> (32 - S[i])))) | 0;
+      }
+      a0 = (a0 + A) | 0; b0 = (b0 + B) | 0; c0 = (c0 + C) | 0; d0 = (d0 + D) | 0;
+    }
+    var out = '', v = [a0, b0, c0, d0], b;
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < 4; j++) {
+        b = (v[i] >>> (j * 8)) & 255;
+        out += (b < 16 ? '0' : '') + b.toString(16);
+      }
+    }
+    return out;
+  }
+
+  function byId(id) { return document.getElementById(id); }
+
+  var form = document.forms['login'];
+  var tabs = byId('tabs');
+  var MODES = ['voucher', 'member', 'qr'];
+  var tabEls = { voucher: byId('tab-voucher'), member: byId('tab-member'), qr: byId('tab-qr') };
+  var panels = { voucher: byId('panel-voucher'), member: byId('panel-member'), qr: byId('panel-qr') };
+  var voucher = byId('voucher');
+  var memberUser = byId('memberUser');
+  var memberPass = byId('memberPass');
+  var userField = byId('username');
+  var passField = byId('password');
+  var toggle = byId('togglePass');
+  var msg = byId('clientMsg');
+  var btn = byId('submitBtn');
+  var scanBox = byId('scanBox');
+  var scanVideo = byId('scanVideo');
+  var scanSteps = byId('scanSteps');
+  var scanMsg = byId('scanMsg');
+  var scanStart = byId('scanStart');
+  var scanFileLbl = byId('scanFileLbl');
+  var scanFile = byId('scanFile');
+  var BTN_TEXT = btn.textContent;
+  var mode = 'voucher';
+  var stream = null, timer = null, busy = false, detector = null;
+
+  function showMsg(text, field) {
+    msg.textContent = text;
+    msg.hidden = false;
+    voucher.classList.remove('invalid');
+    memberUser.classList.remove('invalid');
+    memberPass.classList.remove('invalid');
+    if (field) { field.classList.add('invalid'); field.focus(); }
+  }
+
+  function clearMsg() {
+    msg.hidden = true;
+    voucher.classList.remove('invalid');
+    memberUser.classList.remove('invalid');
+    memberPass.classList.remove('invalid');
+  }
+
+  function setScanMsg(text) {
+    scanMsg.textContent = text;
+    scanMsg.hidden = !text;
+  }
+
+  // Isi field resmi MikroTik. HTTP-CHAP: MD5(chap-id + password + chap-challenge); jika tidak ada, password biasa.
+  function prepare(user, pass) {
+    userField.value = user;
+    var useChap = (typeof chapId !== 'undefined' && typeof chapChallenge !== 'undefined' && chapId && chapChallenge);
+    passField.value = useChap ? md5(chapId + pass + chapChallenge) : pass;
+  }
+
+  function lockButton() {
+    btn.disabled = true;
+    btn.textContent = '⏳ Menghubungkan...';
+  }
+
+  function submitCredentials(user, pass) {
+    prepare(user, pass);
+    lockButton();
+    form.submit();
+  }
+
+  function stopCamera() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (stream) {
+      stream.getTracks().forEach(function (t) { t.stop(); });
+      stream = null;
+    }
+    scanVideo.srcObject = null;
+    scanBox.hidden = true;
+    scanSteps.hidden = false;
+    scanStart.textContent = '📷 Buka Kamera di Sini';
+  }
+
+  function setMode(next, focus) {
+    mode = next;
+    tabs.setAttribute('data-mode', next);
+    MODES.forEach(function (m) {
+      var on = m === next;
+      tabEls[m].setAttribute('aria-selected', String(on));
+      tabEls[m].tabIndex = on ? 0 : -1;
+      panels[m].hidden = !on;
+    });
+    btn.hidden = next === 'qr';
+    if (next !== 'qr') { stopCamera(); }
+    clearMsg();
+    if (focus) {
+      if (next === 'voucher') { voucher.focus(); }
+      else if (next === 'member') { memberUser.focus(); }
+    }
+  }
+
+  MODES.forEach(function (m) {
+    tabEls[m].addEventListener('click', function () { setMode(m, true); });
+  });
+  tabs.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      var i = MODES.indexOf(mode);
+      var next = MODES[(i + (e.key === 'ArrowRight' ? 1 : MODES.length - 1)) % MODES.length];
+      setMode(next, false);
+      tabEls[next].focus();
+      e.preventDefault();
+    }
+  });
+
+  toggle.addEventListener('click', function () {
+    var show = memberPass.type === 'password';
+    memberPass.type = show ? 'text' : 'password';
+    toggle.textContent = show ? '🙈 Hide Password' : '👁️ Show Password';
+  });
+
+  form.addEventListener('submit', function (e) {
+    var user, pass;
+    if (mode === 'voucher') {
+      user = voucher.value.trim();
+      if (!user) { e.preventDefault(); showMsg('Kode voucher wajib diisi.', voucher); return; }
+      pass = user; // voucher: username dan password sama
+    } else {
+      user = memberUser.value.trim();
+      pass = memberPass.value;
+      if (!user) { e.preventDefault(); showMsg('Username wajib diisi.', memberUser); return; }
+      if (!pass) { e.preventDefault(); showMsg('Password wajib diisi.', memberPass); return; }
+    }
+    clearMsg();
+    prepare(user, pass);
+    lockButton();
+  });
+
+  // ---------- Membaca isi QR ----------
+  // Isi QR bisa berupa: kode saja, atau link login (…/login?username=X&password=Y)
+  function parseQr(raw) {
+    var text = String(raw || '').trim();
+    var q = '';
+    var qi = text.indexOf('?');
+    if (qi >= 0) { q = text.slice(qi + 1); }
+    else if (/(^|&)(username|user|voucher|code)=/i.test(text)) { q = text; }
+    if (q) {
+      var p = new URLSearchParams(q.split('#')[0]);
+      var u = p.get('username') || p.get('user') || p.get('voucher') || p.get('code');
+      var pw = p.get('password') || p.get('pass');
+      if (u) { u = u.trim(); return { user: u, pass: pw || u }; }
+    }
+    return { user: text, pass: text };
+  }
+
+  function onScanned(raw) {
+    stopCamera();
+    var c = parseQr(raw);
+    if (!c.user) { setScanMsg('QR tidak berisi kode voucher. Coba lagi.'); return; }
+    setScanMsg('✅ QR terbaca. Menghubungkan...');
+    submitCredentials(c.user, c.pass);
+  }
+
+  // ---------- Scanner di halaman (hanya jika browser mendukung, umumnya butuh HTTPS) ----------
+  if ('BarcodeDetector' in window) {
+    try { detector = new window.BarcodeDetector({ formats: ['qr_code'] }); } catch (err) { detector = null; }
+  }
+
+  if (detector) {
+    scanFileLbl.hidden = false;
+    if (window.isSecureContext && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      scanStart.hidden = false;
+    }
+
+    scanStart.addEventListener('click', function () {
+      if (stream) { stopCamera(); setScanMsg(''); return; }
+      setScanMsg('');
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false })
+        .then(function (s) {
+          stream = s;
+          scanVideo.srcObject = s;
+          scanBox.hidden = false;
+          scanSteps.hidden = true;
+          scanStart.textContent = '⏹️ Tutup Kamera';
+          scanVideo.play();
+          setScanMsg('Arahkan kamera ke QR code pada voucher.');
+          timer = setInterval(function () {
+            if (busy || !scanVideo.videoWidth) { return; }
+            busy = true;
+            detector.detect(scanVideo).then(function (codes) {
+              busy = false;
+              if (codes.length) { onScanned(codes[0].rawValue); }
+            }).catch(function () { busy = false; });
+          }, 300);
+        })
+        .catch(function () {
+          setScanMsg('Kamera tidak bisa dibuka. Izinkan akses kamera, atau pakai Ambil Foto QR.');
+        });
+    });
+
+    scanFile.addEventListener('change', function () {
+      var f = scanFile.files && scanFile.files[0];
+      if (!f) { return; }
+      setScanMsg('Membaca QR...');
+      createImageBitmap(f)
+        .then(function (bmp) { return detector.detect(bmp); })
+        .then(function (codes) {
+          if (codes.length) { onScanned(codes[0].rawValue); }
+          else { setScanMsg('QR tidak terbaca. Foto lebih dekat dan pastikan QR terlihat jelas.'); }
+        })
+        .catch(function () { setScanMsg('Foto tidak bisa dibaca. Coba lagi.'); });
+      scanFile.value = '';
+    });
+  }
+
+  // ---------- Login otomatis dari link QR (…/login?username=X&password=Y atau ?voucher=X) ----------
+  function autoFromUrl() {
+    if (byId('srvError')) { return; } // sudah gagal sebelumnya: jangan kirim ulang
+    var p;
+    try { p = new URLSearchParams(window.location.search); } catch (err) { return; }
+    var u = p.get('username') || p.get('user') || p.get('voucher') || p.get('code');
+    if (!u) { return; }
+    u = u.trim();
+    if (!u) { return; }
+    var pw = p.get('password') || p.get('pass') || u;
+    voucher.value = u;
+    lockButton();
+    setTimeout(function () { submitCredentials(u, pw); }, 500);
+  }
+
+  // Aktifkan kembali tombol jika halaman dibuka lewat tombol Back
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      btn.disabled = false;
+      btn.textContent = BTN_TEXT;
+    }
+  });
+
+  setMode('voucher', false);
+  autoFromUrl();
+})();
+</script>
+
+<footer class="foot">&copy; <span class="year">2026</span> Smooth Broadband Internet.<br>All Rights Reserved.</footer>
+<script>
+(function () {
+  var y = document.querySelectorAll('.year');
+  for (var i = 0; i < y.length; i++) { y[i].textContent = new Date().getFullYear(); }
+})();
+</script>
+</div>
+</body>
+</html>
